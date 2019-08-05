@@ -1,26 +1,29 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import GoogleBooksAPI from './GoogleBooksAPI';
 
-function App() {
-  const defaultProps = {
-    searchTerm: 'RWBY After the Fall',
-    printType: "books",
-    filter: "partial",
-    maxResults: 10
-  };
-  
-  const p1 = new Promise(() => {
-    GoogleBooksAPI(defaultProps);
-  });
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {}
+      }}
 
-  p1.then((input) => {
-    console.log(input);
-  })
+    const defaultProps = {
+      searchTerm: 'RWBY After the Fall',
+      printType: "books",
+      filter: "partial",
+      maxResults: 10
+    };
 
-  return (
-    <p>Test</p>
-  )
-}
+    GoogleBooksAPI(defaultProps)
+    .then(data => {
+      console.log(data);
+    });
+      
+      return (
+        <div>
+          <p>Test</p>
+        </div>
+      );
 
 export default App;

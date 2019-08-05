@@ -9,7 +9,7 @@ function GoogleBooksAPI(props) {
 
   let output = [];
 
-  fetch(baseURL + params)
+  return fetch(baseURL + params)
     .then(results => {
         console.log(results);
         return results.json();
@@ -20,16 +20,15 @@ function GoogleBooksAPI(props) {
             let thisResult = data.items[i];
             console.log(thisResult);
 
-            output[i] = {
+            output.push({
                 id: thisResult.id,
                 author: thisResult.volumeInfo.authors[0],
                 title: thisResult.volumeInfo.title,
                 printType: thisResult.volumeInfo.printType,
                 image: thisResult.volumeInfo.imageLinks.thumbnail,
                 desc: thisResult.volumeInfo.description
-            };
+            });
         }
-        console.log(output);
         return output;
     })
 };
