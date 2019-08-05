@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import GoogleBooksAPI from './GoogleBooksAPI';
 
 function App() {
+  const defaultProps = {
+    searchTerm: 'RWBY After the Fall',
+    printType: "books",
+    filter: "partial",
+    maxResults: 10
+  };
+  
+  const p1 = new Promise(() => {
+    GoogleBooksAPI(defaultProps);
+  });
+
+  p1.then((input) => {
+    console.log(input);
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <p>Test</p>
+  )
 }
 
 export default App;

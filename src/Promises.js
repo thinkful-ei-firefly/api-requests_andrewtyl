@@ -1,24 +1,28 @@
 function Promises() {
     function doTask(name) {
-        console.log(`${name} has started`);
-        const duration =   Math.floor(Math.random() * 5000);
-        setTimeout(() => {
-          console.log(`${name} has ended after ${duration} milliseconds`);
-        }, duration);
-      };
-      
-      const p1 = new Promise((resolve, reject) => {
-        console.log('Running the asynchronous code here');
-        const duration =   Math.floor(Math.random() * 5000);
-        setTimeout(() => {
-          console.log('About to resolve');
-          resolve(); //success!
-        }, duration);
-      });
-      
-      p1.then(() => {
-        console.log('The promise completed successfully');
-      });
+        const p = new Promise((resolve, reject) => {
+          console.log(`${name} has started`);
+          const duration =   Math.floor(Math.random() * 5000);
+          setTimeout(() => {
+            resolve(`${name} has ended after ${duration} milliseconds`);
+          }, duration);
+        });
+        return p;
+      }
+
+      Promise
+        .all([
+            doTask('A'), 
+            doTask('B'),
+            doTask('C')])
+        .then(results => {
+            results.forEach(result => console.log(result));
+            return doTask('D');
+        })
+        .then(result=>{
+            console.log(result);
+        });
+
 }
 
 export default Promises;
