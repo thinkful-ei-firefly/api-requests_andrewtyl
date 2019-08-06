@@ -1,29 +1,48 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import Header from './Header';
 import GoogleBooksAPI from './GoogleBooksAPI';
+import ResultItem from './ResultItem';
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {}
-      }}
+  state = {
+    results: []
+  };
 
-    const defaultProps = {
-      searchTerm: 'RWBY After the Fall',
-      printType: "books",
-      filter: "partial",
-      maxResults: 10
-    };
+  searchBooks = (e) => {
+    e.preventDefault();
+    console.log("submit button pressed");
+    const searchQuery = e.target["search-query"].value;
+    //const printType = e.target["print-type"].value;
+    //const filter = e.target["book-type"].value;
+    const searchElements = {
+      searchTerm: searchQuery,
+      filter: 'partial',
+      maxResults: 10,
+      printType: 'all'
+    }
+    GoogleBooksAPI(searchElements)
+      .then(data => {
+        const results = data.map(item => {
+          return (
+            <ResultItem {...item} />
+          )
+        })
+        this.setState({results});
+      })
 
-    GoogleBooksAPI(defaultProps)
-    .then(data => {
-      console.log(data);
-    });
-      
-      return (
-        <div>
-          <p>Test</p>
+  }
+
+  render() {
+    return (
+      <div>
+        <Header onSubmit={this.searchBooks} />
+        <div className="results-list">
+          {this.state.results}
         </div>
-      );
+      </div>
+    )
+  }
+}
 
 export default App;

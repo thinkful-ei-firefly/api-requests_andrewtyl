@@ -3,6 +3,8 @@ function GoogleBooksAPI(props) {
   let baseURL = 'https://www.googleapis.com/books/v1/volumes?';
   let apiKey = 'AIzaSyAOUy-bylP36rGl78qLJ7J_kxbI-taPDZI';
   let searchTerm = props.searchTerm.split(' ').join('+');
+  
+  
   console.log(searchTerm);
   let params = `q=${searchTerm}&filter=${props.filter}&printType=${props.printType}&key=${apiKey}&maxResults=${props.maxResults}`;
   console.log(baseURL + params);
@@ -19,9 +21,9 @@ function GoogleBooksAPI(props) {
         for (let i = 0; i < props.maxResults; i++){
             let thisResult = data.items[i];
             console.log(thisResult);
-
             output.push({
                 id: thisResult.id,
+                key: thisResult.id,
                 author: thisResult.volumeInfo.authors[0],
                 title: thisResult.volumeInfo.title,
                 printType: thisResult.volumeInfo.printType,
